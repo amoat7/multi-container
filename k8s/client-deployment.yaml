@@ -1,0 +1,40 @@
+# 3 child pods running the client deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: web
+  template:
+    metadata:
+      labels:
+        component: web
+    spec:
+      containers:
+        - name: client
+          image: stephengrider/multi-client
+          ports: 
+            - containerPort: 3000
+
+
+
+# COMMANDS
+
+# kubectl apply -f <filepath>
+# kubectl apply -f .
+# kubectl get pods - get info about pods
+# kubectl get services
+# minikube ip - address of vm
+# acess the pod using <address of vm : nodeport>
+# minikube start --driver=virtualbox --no-vtx-check
+# kubectl describe <object type> <object name> - get detailed info bout an object
+# kubectl delete <object type> <object name>
+# kubectl delete -f <config file>
+# kubectl get deployments
+
+# kubectl set image <object_type>/<object_name><container_name> = <new image to use> - imperatively updating a deployments image
+# kubectl set image deployment/client-deployment client=stephen/multi-client:v5
+# eval $(minikube docker-env) - reconfigure docker cli 

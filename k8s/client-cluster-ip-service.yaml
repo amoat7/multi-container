@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-cluster-ip-service
+spec:
+  type: ClusterIP
+  selector:
+    component: web
+  ports:
+    - port: 3000
+      targetPort: 3000
+
+
+
+# clusterip provides access/ exposes a set of pods to other objects in the cluster 
+# clusterip unlike nodeport does not allow access to the outside world
+
+# Services sets up networking in a k8 cluster
+      # services watches the pods that matches its selector nad routes traffic to it.
+      # There are four sub types: clusterip, nodeport, loadbalancer, ingress
+      # In this example, we're making a nodeport service.
+
+
+    # The label-selector system is used to link the pod and the nodeport
+      # component: web is arbritary. It can be dave: amoat. The client pod however needs the same label. 
+      # This file translates:
+        # - Use selector component:web to find every other object with label of component web
+        # - expose its port 3000 to the outside world
+
+    # port - used by other pods to reach into the client-pod
+    # targetPort - maps traffic from notePort to client-pod (port of pod)
+
+   

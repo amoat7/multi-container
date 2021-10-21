@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: postgres
+  template:
+    metadata:
+      labels:
+        component: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD
+
+# for storing passwords use an imperative command in kubectl
+# kubectl create secret generic <secret_name> --from-literal <key=value>
+# kubectl create secret generic pgpassword --from-literal PGPASSWORD=123456
+# kubectl get secrets
+
+# generic/docker-registry/tls
